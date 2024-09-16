@@ -2,6 +2,8 @@
 
 Native component that allows you to add different rich text abilities
 
+No webviews, no turbo-module-like tricks, just straight up native *UITextView* for iOS and *EditText* for Android
+
 ### NOTE This library is work in progress, check what was implemented below
 
 ## Installation
@@ -13,6 +15,14 @@ or
 ```sh
 yarn add react-native-rich-text-input
 ```
+
+## Installation for iOS
+```sh
+cd ios && pod install
+```
+
+## Installation for Android
+Android is not implemented yet
 
 ## Usage
 
