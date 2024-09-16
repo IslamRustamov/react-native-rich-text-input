@@ -1,23 +1,58 @@
-import { StyleSheet, View } from 'react-native';
-import { RichTextInputView } from 'react-native-rich-text-input';
+/**
+ * Sample React Native App
+ * https://github.com/facebook/react-native
+ *
+ * @format
+ */
 
-export default function App() {
+import React, { useRef } from 'react';
+import { Button, SafeAreaView, StyleSheet } from 'react-native';
+import RichTextInput, { type RichTextRef } from 'react-native-rich-text-input';
+
+function App(): React.JSX.Element {
+  const ref = useRef<RichTextRef>(null);
+
+  const handleUnderlinePress = () => {
+    ref.current?.toggleUnderline();
+  };
+
+  const handleBoldPress = () => {
+    ref.current?.toggleBold();
+  };
+
+  const handleStrikePress = () => {
+    ref.current?.toggleStrike();
+  };
+
+  const handleItalicPress = () => {
+    ref.current?.toggleItalic();
+  };
+
   return (
-    <View style={styles.container}>
-      <RichTextInputView color="#32a852" style={styles.box} />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <RichTextInput
+        ref={ref}
+        style={styles.input}
+        placeholder="I HATE PEOPLE"
+      />
+      <Button title="Underline" onPress={handleUnderlinePress} />
+      <Button title="Bold" onPress={handleBoldPress} />
+      <Button title="Strike" onPress={handleStrikePress} />
+      <Button title="Italic" onPress={handleItalicPress} />
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
-  box: {
-    width: 60,
-    height: 60,
-    marginVertical: 20,
+  input: {
+    backgroundColor: 'green',
+    height: 200,
+    width: '100%',
+    fontSize: 15,
   },
 });
+
+export default App;
