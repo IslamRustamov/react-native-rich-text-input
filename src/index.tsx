@@ -1,4 +1,10 @@
-import { forwardRef, useRef, useEffect, useImperativeHandle } from 'react';
+import {
+  forwardRef,
+  useRef,
+  useEffect,
+  useImperativeHandle,
+  Component,
+} from 'react';
 import {
   requireNativeComponent,
   UIManager,
@@ -14,6 +20,7 @@ const LINKING_ERROR =
   '- You are not using Expo Go\n';
 
 export interface RichTextProps extends Pick<ViewProps, 'style'> {
+  ref: any;
   placeholder?: string;
 }
 
@@ -39,7 +46,7 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
 
     useEffect(() => {
       UIManager.dispatchViewManagerCommand(
-        findNodeHandle(inputRef.current),
+        findNodeHandle(inputRef.current as unknown as Component),
         'setPlaceholder',
         [placeholder]
       );
@@ -49,28 +56,28 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
       return {
         toggleBold: () => {
           UIManager.dispatchViewManagerCommand(
-            findNodeHandle(inputRef.current),
+            findNodeHandle(inputRef.current as unknown as Component),
             'toggleBold',
             []
           );
         },
         toggleItalic: () => {
           UIManager.dispatchViewManagerCommand(
-            findNodeHandle(inputRef.current),
+            findNodeHandle(inputRef.current as unknown as Component),
             'toggleItalic',
             []
           );
         },
         toggleStrike: () => {
           UIManager.dispatchViewManagerCommand(
-            findNodeHandle(inputRef.current),
+            findNodeHandle(inputRef.current as unknown as Component),
             'toggleStrike',
             []
           );
         },
         toggleUnderline: () => {
           UIManager.dispatchViewManagerCommand(
-            findNodeHandle(inputRef.current),
+            findNodeHandle(inputRef.current as unknown as Component),
             'toggleUnderline',
             []
           );
