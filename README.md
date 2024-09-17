@@ -2,7 +2,7 @@
 
 Native component that allows you to add different rich text abilities
 
-No webviews, no turbo-module-like tricks, just straight up native *UITextView* for iOS and *EditText* for Android
+No webviews, no turbo-module-like tricks, just straight up native _UITextView_ for iOS and _EditText_ for Android
 
 ### NOTE This library is work in progress, check what was implemented below
 
@@ -11,17 +11,21 @@ No webviews, no turbo-module-like tricks, just straight up native *UITextView* f
 ```sh
 npm install react-native-rich-text-input
 ```
-or 
+
+or
+
 ```sh
 yarn add react-native-rich-text-input
 ```
 
 ## Installation for iOS
+
 ```sh
 cd ios && pod install
 ```
 
 ## Installation for Android
+
 Android is not implemented yet
 
 ## Usage
@@ -34,34 +38,37 @@ import RichTextInput,  { type RichTextRef } from 'react-native-rich-text-input';
 const ref = useRef<RichTextRef>(null);
 
 const handleUnderlinePress = () => {
-ref.current?.toggleUnderline();
+    ref.current?.toggleUnderline();
 };
 
 const handleBoldPress = () => {
-ref.current?.toggleBold();
+    ref.current?.toggleBold();
 };
 
 const handleStrikePress = () => {
-ref.current?.toggleStrike();
+    ref.current?.toggleStrike();
 };
 
 const handleItalicPress = () => {
-ref.current?.toggleItalic();
+    ref.current?.toggleItalic();
 };
 
 <RichTextInput ref={ref} placeholder="I am the angry placeholder" />;
 ```
 
 # What was done
+
 1. Setting placeholder (iOS)
 2. Selecting a portion of text and adding different styles (bold, italic, underline, strikethrough) (iOS)
 
 # TODO
+
 1. Ability to enable certain format and apply it without selecting a portion of text
 2. Returning active formats for a selection
 3. Adding onChange prop
 4. Returning text with markdown
 5. Returning text without markdown
+6. Add native context menu for formatting
 
 ## Contributing
 
