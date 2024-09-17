@@ -1,6 +1,6 @@
 {
   "name": "react-native-rich-text-input",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Native component that allows you to add different rich text abilities",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
@@ -47,7 +47,13 @@
   "keywords": [
     "react-native",
     "ios",
-    "android"
+    "android",
+    "rich-text",
+    "react-native-rich-text",
+    "react native rich text",
+    "rich text",
+    "rich text input",
+    "text input"
   ],
   "repository": {
     "type": "git",
