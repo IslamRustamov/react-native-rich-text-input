@@ -29,15 +29,8 @@ public class RichTextInputViewManager: RCTViewManager, UITextViewDelegate  {
       view.delegate = self
         
       richTextView = view
-    
+        
       return view
-  }
-    
-  @objc
-  func toggleUnderline(_ node: NSNumber) {
-      executeBlock({ (richTextView) in
-        self.toggleStyle(style: NSAttributedString.Key.underlineStyle)
-      }, onNode: node)
   }
   
   @objc
@@ -50,132 +43,41 @@ public class RichTextInputViewManager: RCTViewManager, UITextViewDelegate  {
   }
   
   @objc
+  func toggleUnderline(_ node: NSNumber) {
+      executeBlock({ (richTextView) in
+        richTextView.toggleStyle(style: NSAttributedString.Key.underlineStyle)
+      }, onNode: node)
+  }
+  
+  @objc
   func toggleStrike(_ node: NSNumber) {
       executeBlock({ (richTextView) in
-        self.toggleStyle(style: NSAttributedString.Key.strikethroughStyle)
+        richTextView.toggleStyle(style: NSAttributedString.Key.strikethroughStyle)
       }, onNode: node)
   }
   
   @objc
   func toggleBold(_ node: NSNumber) {
       executeBlock({ (richTextView) in
-        self.toggleFont(trait: .traitBold)
+        richTextView.toggleFont(trait: .traitBold)
       }, onNode: node)
   }
   
   @objc
   func toggleItalic(_ node: NSNumber) {
       executeBlock({ (richTextView) in
-        self.toggleFont(trait: .traitItalic)
+        richTextView.toggleFont(trait: .traitItalic)
       }, onNode: node)
   }
-
   
   // Helpers
-  func executeBlock(_ block: @escaping (UITextView) -> Void, onNode node: NSNumber) {
+  func executeBlock(_ block: @escaping (RichTextInput) -> Void, onNode node: NSNumber) {
       self.bridge.uiManager.addUIBlock { (manager, viewRegistry) in
         guard let richText = self.richTextView else {
             return
         }
         block(richText)
       }
-  }
-  
-  func toggleStyle(style: NSAttributedString.Key) {
-    guard let richText = richTextView else {
-        return
-    }
-    
-    if richText.selectedRange.length == 0 {
-      return
-    }
-    
-    let isStyleEnabled = richText.textStorage.attribute(
-      style,
-      at: richText.selectedRange.location,
-      longestEffectiveRange: nil,
-      in: richText.selectedRange
-    ) != nil
-    
-    if (isStyleEnabled) {
-      richText.textStorage.removeAttribute(
-        style,
-        range: richText.selectedRange
-      )
-    } else {
-      var attrs = richText.textStorage.attributes(
-        at: richText.selectedRange.location,
-        longestEffectiveRange: nil,
-        in: richText.selectedRange
-      )
-      
-      attrs[style] = NSUnderlineStyle.single.rawValue
-
-      richText.textStorage.setAttributes(
-        attrs,
-        range: richText.selectedRange
-      )
-    }
-  }
-  
-  
-  func toggleFont(trait: UIFontDescriptor.SymbolicTraits.Element) {
-    guard let richText = richTextView else {
-        return
-    }
-    
-    if richText.selectedRange.length == 0 {
-      return
-    }
-
-    let fontAttribute = richText.textStorage.attribute(
-      NSAttributedString.Key.font,
-      at: richText.selectedRange.location,
-      longestEffectiveRange: nil,
-      in: richText.selectedRange
-    )
-    
-    guard let font = fontAttribute as? UIFont else {
-      addFont(newTrait: trait, existingTraits: [])
-      return
-    }
-        
-    let isFontAdded = font.fontDescriptor.symbolicTraits.contains(trait)
-
-    if (isFontAdded) {
-      addFont(newTrait: trait, existingTraits: font.fontDescriptor.symbolicTraits, deletion: true)
-    } else {
-      addFont(newTrait: trait, existingTraits: font.fontDescriptor.symbolicTraits)
-    }
-  }
-  
-  func addFont(newTrait: UIFontDescriptor.SymbolicTraits.Element, existingTraits: UIFontDescriptor.SymbolicTraits = [], deletion: Bool = false) {
-    guard let richText = richTextView else {
-        return
-    }
-    
-    var attrs = richText.textStorage.attributes(
-      at: richText.selectedRange.location,
-      longestEffectiveRange: nil,
-      in: richText.selectedRange
-    )
-
-    var traits: UIFontDescriptor.SymbolicTraits = existingTraits
-    
-    attrs[NSAttributedString.Key.font] = UIFont.systemFont(ofSize: 16)
-  
-    if deletion {
-      traits.remove(newTrait)
-    } else {
-      traits.insert(newTrait)
-    }
-
-    attrs[NSAttributedString.Key.font] = UIFont.systemFont(ofSize: 16, symbolicTraits: traits)
-    
-    richText.textStorage.setAttributes(
-      attrs,
-      range: richText.selectedRange
-    )
   }
     
   public func textViewDidBeginEditing(_ textView: UITextView) {
@@ -195,8 +97,8 @@ public class RichTextInputViewManager: RCTViewManager, UITextViewDelegate  {
 
 extension UIFont {
   class func systemFont(ofSize fontSize: CGFloat, symbolicTraits: UIFontDescriptor.SymbolicTraits) -> UIFont? {
-          return UIFont.systemFont(ofSize: fontSize).including(symbolicTraits: symbolicTraits)
-      }
+      return UIFont.systemFont(ofSize: fontSize).including(symbolicTraits: symbolicTraits)
+  }
 
   func including(symbolicTraits: UIFontDescriptor.SymbolicTraits) -> UIFont? {
       var _symbolicTraits = self.fontDescriptor.symbolicTraits
