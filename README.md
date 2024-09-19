@@ -60,6 +60,7 @@ const handleItalicPress = () => {
 
 1. Setting placeholder (iOS)
 2. Selecting a portion of text and adding different styles (bold, italic, underline, strikethrough) (iOS)
+3. Add native context menu for formatting (iOS)
 
 # TODO
 
@@ -68,7 +69,6 @@ const handleItalicPress = () => {
 3. Adding onChange prop
 4. Returning text with markdown
 5. Returning text without markdown
-6. Add native context menu for formatting
 
 ## Contributing
 
