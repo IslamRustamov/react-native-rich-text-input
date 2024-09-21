@@ -71,13 +71,13 @@ const handleChange = (event: RichTextChangeEvent) => {
 2. Select a portion of text and add different styles (bold, italic, underline, strikethrough) (iOS)
 3. Add native context menu for formatting (iOS)
 4. Add onChange prop (iOS)
+5. Return text without markdown
 
 # TODO
 
 1. Ability to enable certain format and apply it without selecting a portion of text
 2. Returning active formats for a selection
 3. Returning text with markdown
-4. Returning text without markdown
 
 ## Contributing
 
