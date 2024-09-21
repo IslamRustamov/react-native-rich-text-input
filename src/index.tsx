@@ -11,6 +11,7 @@ import {
   Platform,
   type ViewProps,
   findNodeHandle,
+  NativeModules,
 } from 'react-native';
 
 const LINKING_ERROR =
@@ -19,9 +20,14 @@ const LINKING_ERROR =
   '- You rebuilt the app after installing the package\n' +
   '- You are not using Expo Go\n';
 
+export interface RichTextChangeEvent {
+  nativeEvent: { text: string };
+}
+
 export interface RichTextProps extends Pick<ViewProps, 'style'> {
   ref: any;
   placeholder?: string;
+  onChange?: (event: RichTextChangeEvent) => void;
 }
 
 export interface RichTextRef {
@@ -29,6 +35,7 @@ export interface RichTextRef {
   toggleItalic: Function;
   toggleStrike: Function;
   toggleUnderline: Function;
+  getHTML: () => Promise<string>;
 }
 
 const ComponentName = 'RichTextInputView';
@@ -81,6 +88,9 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
             'toggleUnderline',
             []
           );
+        },
+        getHTML: () => {
+          return NativeModules.RichTextInputViewManager.getHTML();
         },
       };
     }, []);

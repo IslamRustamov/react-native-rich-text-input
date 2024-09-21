@@ -7,7 +7,10 @@
 
 import React, { useRef } from 'react';
 import { Button, SafeAreaView, StyleSheet } from 'react-native';
-import RichTextInput, { type RichTextRef } from 'react-native-rich-text-input';
+import RichTextInput, {
+  type RichTextChangeEvent,
+  type RichTextRef,
+} from 'react-native-rich-text-input';
 
 function App(): React.JSX.Element {
   const ref = useRef<RichTextRef>(null);
@@ -28,17 +31,28 @@ function App(): React.JSX.Element {
     ref.current?.toggleItalic();
   };
 
+  // NOTE: work in progress
+  const handleGetMarkdown = async () => {
+    console.log(ref.current?.getHTML());
+  };
+
+  const handleChange = (event: RichTextChangeEvent) => {
+    console.log(event.nativeEvent.text);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <RichTextInput
         ref={ref}
         style={styles.input}
-        placeholder="I HATE PEOPLE"
+        placeholder="I HATE ASDASDSA"
+        onChange={handleChange}
       />
       <Button title="Underline" onPress={handleUnderlinePress} />
       <Button title="Bold" onPress={handleBoldPress} />
       <Button title="Strike" onPress={handleStrikePress} />
       <Button title="Italic" onPress={handleItalicPress} />
+      <Button title="Get markdown" onPress={handleGetMarkdown} />
     </SafeAreaView>
   );
 }
@@ -48,7 +62,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   input: {
-    backgroundColor: 'green',
     height: 200,
     width: '100%',
     fontSize: 15,

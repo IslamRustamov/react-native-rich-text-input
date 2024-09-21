@@ -69,6 +69,11 @@ public class RichTextInputViewManager: RCTViewManager, UITextViewDelegate  {
         richTextView.toggleFont(trait: .traitItalic)
       }, onNode: node)
   }
+
+  @objc
+  func getHTML() -> String {
+    return richTextView?.getHTML() ?? "ERROR: richTextView IS NOT INITIALIZED"
+  }
   
   // Helpers
   func executeBlock(_ block: @escaping (RichTextInput) -> Void, onNode node: NSNumber) {
@@ -91,6 +96,14 @@ public class RichTextInputViewManager: RCTViewManager, UITextViewDelegate  {
       if textView.text.isEmpty {
           textView.text = richTextView?.placeholder ?? "Placeholder"
           textView.textColor = UIColor.lightGray
+      }
+  }
+
+  // NOTE: huge type mismatching of UITextView and RichTextInput
+  // is there a proper way to do that?
+  public func textViewDidChange(_ textView: UITextView) {
+      if let onChange = richTextView?.onChange {
+          onChange(["text": textView.text ?? ""])
       }
   }
 }

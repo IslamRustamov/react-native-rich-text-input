@@ -31,7 +31,7 @@ Android is not implemented yet
 ## Usage
 
 ```js
-import RichTextInput,  { type RichTextRef } from 'react-native-rich-text-input';
+import RichTextInput,  { type RichTextRef, type RichTextChangeEvent } from 'react-native-rich-text-input';
 
 // ...
 
@@ -53,22 +53,31 @@ const handleItalicPress = () => {
     ref.current?.toggleItalic();
 };
 
-<RichTextInput ref={ref} placeholder="I am the angry placeholder" />;
+const handleChange = (event: RichTextChangeEvent) => {
+    console.log(event.nativeEvent.text);
+};
+
+<RichTextInput
+    ref={ref}
+    placeholder="I am the angry placeholder"
+    onChange={handleChange}
+    style={{height: 200, width: "100%"}}
+/>
 ```
 
 # What was done
 
 1. Setting placeholder (iOS)
-2. Selecting a portion of text and adding different styles (bold, italic, underline, strikethrough) (iOS)
+2. Select a portion of text and add different styles (bold, italic, underline, strikethrough) (iOS)
 3. Add native context menu for formatting (iOS)
+4. Add onChange prop (iOS)
 
 # TODO
 
 1. Ability to enable certain format and apply it without selecting a portion of text
 2. Returning active formats for a selection
-3. Adding onChange prop
-4. Returning text with markdown
-5. Returning text without markdown
+3. Returning text with markdown
+4. Returning text without markdown
 
 ## Contributing
 

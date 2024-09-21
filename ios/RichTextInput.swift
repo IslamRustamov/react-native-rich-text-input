@@ -12,6 +12,8 @@ import Foundation
 // UPDATE: okay, now this class is also needed for helping functions
 class RichTextInput: UITextView, UIEditMenuInteractionDelegate {
   @objc var placeholder: String = "Placeholder"
+
+  @objc var onChange: RCTBubblingEventBlock? = nil
   
   override func editMenu(for textRange: UITextRange, suggestedActions: [UIMenuElement]) -> UIMenu? {
     var option: UIMenu.Options? = nil
@@ -109,4 +111,48 @@ class RichTextInput: UITextView, UIEditMenuInteractionDelegate {
         }
     }
   }
+
+  @discardableResult func async<T>(_ block: @escaping () -> T) -> T {
+    let queue = DispatchQueue.global()
+    let group = DispatchGroup()
+    var result: T?
+    group.enter()
+    queue.async(group: group) { result = block(); group.leave(); }
+    group.wait()
+
+    return result!
+  }
+  
+  // TODO: does it have to be so complicated?
+  // NOTE: semaphors are needed cause textstorage requires to work on main thread
+  func getHTML() -> String {
+    var value: String = ""
+    
+    let semaphore = DispatchSemaphore(value: 0)
+
+    DispatchQueue.main.async {
+      value = self.attributedText.toHTML() ?? ""
+      semaphore.signal()
+    }
+    
+    semaphore.wait()
+    
+    return value
+  }
+}
+
+extension NSAttributedString {
+    func toHTML() -> String? {
+        let documentAttributes = [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.html]
+        do {
+            let htmlData = try self.data(from: NSMakeRange(0, self.length), documentAttributes:documentAttributes)
+            if let htmlString = String(data:htmlData, encoding:String.Encoding.utf8) {
+                return htmlString
+            }
+        }
+        catch {
+            print("error creating RTF from Attributed String")
+        }
+        return nil
+    }
 }
