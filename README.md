@@ -53,7 +53,7 @@ const handleItalicPress = () => {
     ref.current?.toggleItalic();
 };
 
-const handleGetMarkdown = async () => {
+const handleGetRTF = async () => {
     console.log(ref.current?.getRTF());
 };
 
