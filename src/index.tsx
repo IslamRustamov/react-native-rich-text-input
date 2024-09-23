@@ -52,11 +52,14 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
     const inputRef = useRef<RichTextRef>();
 
     useEffect(() => {
-      UIManager.dispatchViewManagerCommand(
-        findNodeHandle(inputRef.current as unknown as Component),
-        'setPlaceholder',
-        [placeholder]
-      );
+      // Temporary hack for iOS
+      if (Platform.OS === 'ios') {
+        UIManager.dispatchViewManagerCommand(
+          findNodeHandle(inputRef.current as unknown as Component),
+          'setPlaceholder',
+          [placeholder]
+        );
+      }
     }, [placeholder]);
 
     useImperativeHandle(ref, () => {
@@ -95,7 +98,9 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
       };
     }, []);
 
-    return <RichTextInputView ref={inputRef} {...rest} />;
+    return (
+      <RichTextInputView ref={inputRef} placeholder={placeholder} {...rest} />
+    );
   }
 );
 

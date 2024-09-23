@@ -1,20 +1,19 @@
 package com.richtextinput
 
-import android.graphics.Color
-import android.view.View
+import android.widget.EditText
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 
-class RichTextInputViewManager : SimpleViewManager<View>() {
+class RichTextInputViewManager : SimpleViewManager<EditText>() {
   override fun getName() = "RichTextInputView"
 
-  override fun createViewInstance(reactContext: ThemedReactContext): View {
-    return View(reactContext)
+  override fun createViewInstance(reactContext: ThemedReactContext): EditText {
+    return EditText(reactContext)
   }
 
-  @ReactProp(name = "color")
-  fun setColor(view: View, color: String) {
-    view.setBackgroundColor(Color.parseColor(color))
+  @ReactProp(name = "placeholder")
+  fun setPlaceholder(view: EditText, placeholder: String) {
+    view.hint = placeholder
   }
 }

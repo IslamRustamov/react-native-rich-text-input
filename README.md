@@ -26,7 +26,7 @@ cd ios && pod install
 
 ## Installation for Android
 
-Android is not implemented yet
+No specific installation needed, just install the lib and launch the project
 
 ## Usage
 
@@ -71,12 +71,12 @@ const handleChange = (event: RichTextChangeEvent) => {
 
 # What was done
 
-1. Setting placeholder (iOS)
+1. Setting placeholder (iOS, Android)
 2. Select a portion of text and add different styles (bold, italic, underline, strikethrough) (iOS)
 3. Add native context menu for formatting (iOS)
 4. Add onChange prop (iOS)
-5. Return text without markdown
-6. Add method that returns rich text in RTF
+5. Return text without markdown (iOS)
+6. Add method that returns rich text in RTF (iOS)
 
 # TODO
 
