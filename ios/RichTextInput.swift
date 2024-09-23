@@ -125,13 +125,13 @@ class RichTextInput: UITextView, UIEditMenuInteractionDelegate {
   
   // TODO: does it have to be so complicated?
   // NOTE: semaphors are needed cause textstorage requires to work on main thread
-  func getHTML() -> String {
+  func getRTF() -> String {
     var value: String = ""
     
     let semaphore = DispatchSemaphore(value: 0)
 
     DispatchQueue.main.async {
-      value = self.attributedText.toHTML() ?? ""
+      value = self.attributedText.toRTF() ?? ""
       semaphore.signal()
     }
     
@@ -142,12 +142,12 @@ class RichTextInput: UITextView, UIEditMenuInteractionDelegate {
 }
 
 extension NSAttributedString {
-    func toHTML() -> String? {
-        let documentAttributes = [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.html]
+    func toRTF() -> String? {
+        let documentAttributes = [NSAttributedString.DocumentAttributeKey.documentType: NSAttributedString.DocumentType.rtf]
         do {
-            let htmlData = try self.data(from: NSMakeRange(0, self.length), documentAttributes:documentAttributes)
-            if let htmlString = String(data:htmlData, encoding:String.Encoding.utf8) {
-                return htmlString
+            let rtfData = try self.data(from: NSMakeRange(0, self.length), documentAttributes:documentAttributes)
+            if let rtfString = String(data:rtfData, encoding:String.Encoding.utf8) {
+                return rtfString
             }
         }
         catch {

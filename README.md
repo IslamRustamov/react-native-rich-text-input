@@ -53,6 +53,10 @@ const handleItalicPress = () => {
     ref.current?.toggleItalic();
 };
 
+const handleGetMarkdown = async () => {
+    console.log(ref.current?.getRTF());
+};
+
 const handleChange = (event: RichTextChangeEvent) => {
     console.log(event.nativeEvent.text);
 };
@@ -72,12 +76,14 @@ const handleChange = (event: RichTextChangeEvent) => {
 3. Add native context menu for formatting (iOS)
 4. Add onChange prop (iOS)
 5. Return text without markdown
+6. Add method that returns rich text in RTF
 
 # TODO
 
 1. Ability to enable certain format and apply it without selecting a portion of text
 2. Returning active formats for a selection
-3. Returning text with markdown
+3. Returning text with markdown (not sure about this for now)
+4. Add method to set default text
 
 ## Contributing
 

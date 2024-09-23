@@ -18,6 +18,6 @@ RCT_EXTERN_METHOD(setPlaceholder:(nonnull NSNumber *)node placeholder:(nonnull N
 RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)
 
 // NOTE: work in progress
-RCT_EXTERN__BLOCKING_SYNCHRONOUS_METHOD(getHTML);
+RCT_EXTERN__BLOCKING_SYNCHRONOUS_METHOD(getRTF);
 
 @end

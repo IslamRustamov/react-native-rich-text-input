@@ -35,7 +35,7 @@ export interface RichTextRef {
   toggleItalic: Function;
   toggleStrike: Function;
   toggleUnderline: Function;
-  getHTML: () => Promise<string>;
+  getRTF: () => Promise<string>;
 }
 
 const ComponentName = 'RichTextInputView';
@@ -89,8 +89,8 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
             []
           );
         },
-        getHTML: () => {
-          return NativeModules.RichTextInputViewManager.getHTML();
+        getRTF: () => {
+          return NativeModules.RichTextInputViewManager.getRTF();
         },
       };
     }, []);

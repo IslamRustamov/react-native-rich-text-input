@@ -31,9 +31,8 @@ function App(): React.JSX.Element {
     ref.current?.toggleItalic();
   };
 
-  // NOTE: work in progress
   const handleGetMarkdown = async () => {
-    console.log(ref.current?.getHTML());
+    console.log(ref.current?.getRTF());
   };
 
   const handleChange = (event: RichTextChangeEvent) => {
