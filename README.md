@@ -72,7 +72,7 @@ const handleChange = (event: RichTextChangeEvent) => {
 # What was done
 
 1. Setting placeholder (iOS, Android)
-2. Select a portion of text and add different styles (bold, italic, underline, strikethrough) (iOS)
+2. Select a portion of text and add different styles (bold, italic, underline, strikethrough) (iOS, Android)
 3. Add native context menu for formatting (iOS)
 4. Add onChange prop (iOS)
 5. Return text without markdown (iOS)
@@ -88,6 +88,8 @@ const handleChange = (event: RichTextChangeEvent) => {
 ## Contributing
 
 See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+
+Note from author: if you have requests regarding new props, bugs and stuff - please open up an issue and I will take a look at it
 
 ## License
 
