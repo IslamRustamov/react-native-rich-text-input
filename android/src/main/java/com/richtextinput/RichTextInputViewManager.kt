@@ -6,18 +6,41 @@ import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import android.widget.EditText
+import androidx.core.widget.doOnTextChanged
 import com.facebook.infer.annotation.Assertions
+import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
-
+import com.facebook.react.uimanager.events.RCTEventEmitter
 
 class RichTextInputViewManager : SimpleViewManager<EditText>() {
   override fun getName() = "RichTextInputView"
 
+  override fun getExportedCustomBubblingEventTypeConstants(): Map<String, Any> {
+    return mapOf(
+      "topChange" to mapOf(
+        "phasedRegistrationNames" to mapOf(
+          "bubbled" to "onChange"
+        )
+      )
+    )
+  }
+
   override fun createViewInstance(reactContext: ThemedReactContext): EditText {
-    return EditText(reactContext)
+    val editText = EditText(reactContext)
+
+    editText.doOnTextChanged { text, start, before, count ->
+      val event = Arguments.createMap().apply {
+        putString("text", text.toString())
+      }
+      reactContext
+        .getJSModule(RCTEventEmitter::class.java)
+        .receiveEvent(editText.id, "topChange", event)
+    }
+
+    return editText
   }
 
   @ReactProp(name = "placeholder")
