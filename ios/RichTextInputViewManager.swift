@@ -71,8 +71,8 @@ public class RichTextInputViewManager: RCTViewManager, UITextViewDelegate  {
   }
 
   @objc
-  func getRTF() -> String {
-    return richTextView?.getRTF() ?? "ERROR: richTextView IS NOT INITIALIZED"
+  func getHTML() -> String {
+    return richTextView?.getHTML() ?? "ERROR: richTextView IS NOT INITIALIZED"
   }
   
   // Helpers

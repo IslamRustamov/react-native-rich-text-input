@@ -7,11 +7,13 @@ import com.facebook.react.uimanager.ViewManager
 
 
 class RichTextInputPackage : ReactPackage {
+  val richTextInputViewManager = RichTextInputViewManager()
+
   override fun createNativeModules(reactContext: ReactApplicationContext): List<NativeModule> {
-    return emptyList()
+    return listOf(richTextInputViewManager).toMutableList()
   }
 
   override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
-    return listOf(RichTextInputViewManager())
+    return listOf(richTextInputViewManager)
   }
 }

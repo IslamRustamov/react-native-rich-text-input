@@ -6,9 +6,11 @@ import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import android.widget.EditText
+import androidx.core.text.toHtml
 import androidx.core.widget.doOnTextChanged
 import com.facebook.infer.annotation.Assertions
 import com.facebook.react.bridge.Arguments
+import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableArray
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
@@ -16,6 +18,8 @@ import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.events.RCTEventEmitter
 
 class RichTextInputViewManager : SimpleViewManager<EditText>() {
+  var editText: EditText? = null
+
   override fun getName() = "RichTextInputView"
 
   override fun getExportedCustomBubblingEventTypeConstants(): Map<String, Any> {
@@ -29,23 +33,32 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
   }
 
   override fun createViewInstance(reactContext: ThemedReactContext): EditText {
-    val editText = EditText(reactContext)
+    editText = EditText(reactContext)
 
-    editText.doOnTextChanged { text, start, before, count ->
+    editText!!.doOnTextChanged { text, start, before, count ->
       val event = Arguments.createMap().apply {
         putString("text", text.toString())
       }
       reactContext
         .getJSModule(RCTEventEmitter::class.java)
-        .receiveEvent(editText.id, "topChange", event)
+        .receiveEvent(editText!!.id, "topChange", event)
     }
 
-    return editText
+    return editText as EditText
   }
 
   @ReactProp(name = "placeholder")
   fun setPlaceholder(view: EditText, placeholder: String) {
     view.hint = placeholder
+  }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  fun getHTML(): String {
+    if (editText != null) {
+      return editText!!.text.toHtml()
+    }
+
+    return "ERROR: richTextView IS NOT INITIALIZED"
   }
 
   override fun receiveCommand(root: EditText, commandId: String?, args: ReadableArray?) {

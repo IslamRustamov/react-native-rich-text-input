@@ -35,7 +35,7 @@ export interface RichTextRef {
   toggleItalic: Function;
   toggleStrike: Function;
   toggleUnderline: Function;
-  getRTF: () => Promise<string>;
+  getHTML: () => Promise<string>;
 }
 
 const ComponentName = 'RichTextInputView';
@@ -92,8 +92,12 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
             []
           );
         },
-        getRTF: () => {
-          return NativeModules.RichTextInputViewManager.getRTF();
+        getHTML: () => {
+          // NOTE: maybe I should address this issue... just maybe...
+          if (Platform.OS === 'android') {
+            return NativeModules.RichTextInputView.getHTML();
+          }
+          return NativeModules.RichTextInputViewManager.getHTML();
         },
       };
     }, []);

@@ -31,8 +31,8 @@ function App(): React.JSX.Element {
     ref.current?.toggleItalic();
   };
 
-  const handleGetMarkdown = async () => {
-    console.log(ref.current?.getRTF());
+  const handleGetHTML = async () => {
+    console.log(ref.current?.getHTML());
   };
 
   const handleChange = (event: RichTextChangeEvent) => {
@@ -51,7 +51,7 @@ function App(): React.JSX.Element {
       <Button title="Bold" onPress={handleBoldPress} />
       <Button title="Strike" onPress={handleStrikePress} />
       <Button title="Italic" onPress={handleItalicPress} />
-      <Button title="Get markdown" onPress={handleGetMarkdown} />
+      <Button title="Get HTML" onPress={handleGetHTML} />
     </SafeAreaView>
   );
 }
