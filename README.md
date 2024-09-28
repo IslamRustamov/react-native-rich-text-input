@@ -55,8 +55,8 @@ const handleItalicPress = () => {
     ref.current?.toggleItalic();
 };
 
-const handleGetRTF = async () => {
-    console.log(ref.current?.getRTF());
+const handleGetHTML = async () => {
+    console.log(ref.current?.getHTML());
 };
 
 const handleChange = (event: RichTextChangeEvent) => {
