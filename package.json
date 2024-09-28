@@ -53,7 +53,10 @@
     "react native rich text",
     "rich text",
     "rich text input",
-    "text input"
+    "text input",
+    "react native rich text input",
+    "react-native-rich-text-input",
+    "rich text editor"
   ],
   "repository": {
     "type": "git",

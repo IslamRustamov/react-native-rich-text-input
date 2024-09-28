@@ -36,6 +36,7 @@ export interface RichTextRef {
   toggleStrike: Function;
   toggleUnderline: Function;
   getHTML: () => Promise<string>;
+  insertText: (text: string) => void;
 }
 
 const ComponentName = 'RichTextInputView';
@@ -98,6 +99,13 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
             return NativeModules.RichTextInputView.getHTML();
           }
           return NativeModules.RichTextInputViewManager.getHTML();
+        },
+        insertText: (text) => {
+          UIManager.dispatchViewManagerCommand(
+            findNodeHandle(inputRef.current as unknown as Component),
+            'insertText',
+            [text]
+          );
         },
       };
     }, []);

@@ -1,11 +1,13 @@
 package com.richtextinput
 
+import android.R.attr.htmlDescription
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
 import android.widget.EditText
+import androidx.core.text.HtmlCompat
 import androidx.core.text.toHtml
 import androidx.core.widget.doOnTextChanged
 import com.facebook.infer.annotation.Assertions
@@ -16,6 +18,7 @@ import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.events.RCTEventEmitter
+
 
 class RichTextInputViewManager : SimpleViewManager<EditText>() {
   var editText: EditText? = null
@@ -77,9 +80,23 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
       "toggleUnderline" -> {
         toggleUnderline(root)
       }
+      "insertText" -> {
+        if (args !== null) {
+          val text = args.getString(0)
+
+          insertText(root, text)
+        }
+      }
     }
 
     super.receiveCommand(root, commandId, args)
+  }
+
+  fun insertText(editText: EditText, text: String) {
+    val spannedText = HtmlCompat.fromHtml(text, HtmlCompat.FROM_HTML_MODE_LEGACY)
+    val trimmedText = spannedText.toString().trim()
+
+    editText.text.insert(0, spannedText.subSequence(0, trimmedText.length))
   }
 
   fun toggleBold(editText: EditText) {

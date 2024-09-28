@@ -39,6 +39,10 @@ function App(): React.JSX.Element {
     console.log(event.nativeEvent.text);
   };
 
+  const handleInsertText = () => {
+    ref.current?.insertText('<p dir="ltr"><u>some</u> <b>text</b></p>');
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <RichTextInput
@@ -52,6 +56,7 @@ function App(): React.JSX.Element {
       <Button title="Strike" onPress={handleStrikePress} />
       <Button title="Italic" onPress={handleItalicPress} />
       <Button title="Get HTML" onPress={handleGetHTML} />
+      <Button title="Insert text" onPress={handleInsertText} />
     </SafeAreaView>
   );
 }

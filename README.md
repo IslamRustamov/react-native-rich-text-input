@@ -61,6 +61,11 @@ const handleChange = (event: RichTextChangeEvent) => {
     console.log(event.nativeEvent.text);
 };
 
+// NOTE: will automatically convert html to rich text
+const handleInsertText = () => {
+    ref.current?.insertText('<p dir="ltr"><u>some</u> <b>text</b></p>');
+};
+
 <RichTextInput
     ref={ref}
     placeholder="I am the angry placeholder"
@@ -77,13 +82,13 @@ const handleChange = (event: RichTextChangeEvent) => {
 4. Add onChange prop (iOS, Android)
 5. Return text without markdown (iOS, Android)
 6. Add method that returns rich text in HTML (iOS, Android)
+7. Add method to set default text (Android)
 
 # TODO
 
 1. Ability to enable certain format and apply it without selecting a portion of text
 2. Returning active formats for a selection
 3. Add convertation to markdown (not sure about this for now)
-4. Add method to set default text
 
 ## Contributing
 
