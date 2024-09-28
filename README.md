@@ -6,6 +6,8 @@ No webviews, no turbo-module-like tricks, just straight up native _UITextView_ f
 
 ### NOTE This library is work in progress, check what was implemented below
 
+![](https://github.com/IslamRustamov/react-native-rich-text-input/blob/main/public/iPhone.gif)
+
 ## Installation
 
 ```sh
