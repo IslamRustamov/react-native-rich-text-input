@@ -43,6 +43,14 @@ function App(): React.JSX.Element {
     ref.current?.insertText('<p dir="ltr"><u>some</u> <b>text</b></p>');
   };
 
+  const handleFocus = () => {
+    ref.current?.focus();
+  };
+
+  const handleBlur = () => {
+    ref.current?.blur();
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <RichTextInput
@@ -51,6 +59,8 @@ function App(): React.JSX.Element {
         placeholder="I HATE ASDASDSA"
         onChange={handleChange}
       />
+      <Button title="Focus" onPress={handleFocus} />
+      <Button title="Blur" onPress={handleBlur} />
       <Button title="Underline" onPress={handleUnderlinePress} />
       <Button title="Bold" onPress={handleBoldPress} />
       <Button title="Strike" onPress={handleStrikePress} />

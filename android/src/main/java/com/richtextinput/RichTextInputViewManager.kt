@@ -1,11 +1,13 @@
 package com.richtextinput
 
 import android.R.attr.htmlDescription
+import android.app.Activity
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.text.HtmlCompat
 import androidx.core.text.toHtml
@@ -68,6 +70,12 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
     Assertions.assertNotNull(root)
 
     when (commandId) {
+      "focus" -> {
+        focus(root)
+      }
+      "blur" -> {
+        blur(root)
+      }
       "toggleBold" -> {
         toggleBold(root)
       }
@@ -90,6 +98,20 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
     }
 
     super.receiveCommand(root, commandId, args)
+  }
+
+  fun focus(editText: EditText) {
+    editText.requestFocus()
+
+    val inputMethodManager = editText.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.showSoftInput(editText, 0)
+  }
+
+  fun blur(editText: EditText) {
+    editText.clearFocus()
+
+    val inputMethodManager = editText.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+    inputMethodManager.hideSoftInputFromWindow(editText.windowToken, 0)
   }
 
   fun insertText(editText: EditText, text: String) {

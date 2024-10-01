@@ -43,6 +43,14 @@ class RichTextInput: UITextView, UIEditMenuInteractionDelegate {
     actions.insert(customMenu, at: 0)
     return UIMenu(children: actions)
   }
+    
+    func focus() {
+        reactFocus()
+    }
+    
+    func blur() {
+        reactBlur()
+    }
   
   // TODO: styles are getting lost if you enable/reenable them, bug, needs fixing
   func toggleStyle(style: NSAttributedString.Key) {

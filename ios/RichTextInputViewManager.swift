@@ -48,6 +48,20 @@ public class RichTextInputViewManager: RCTViewManager, UITextViewDelegate  {
         richTextView.toggleStyle(style: NSAttributedString.Key.underlineStyle)
       }, onNode: node)
   }
+    
+    @objc
+    func focus(_ node: NSNumber) {
+        executeBlock({ (richTextView) in
+          richTextView.focus()
+        }, onNode: node)
+    }
+
+    @objc
+    func blur(_ node: NSNumber) {
+        executeBlock({ (richTextView) in
+          richTextView.blur()
+        }, onNode: node)
+    }
   
   @objc
   func toggleStrike(_ node: NSNumber) {

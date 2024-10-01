@@ -14,6 +14,8 @@ RCT_EXTERN_METHOD(toggleBold:(nonnull NSNumber *)node)
 RCT_EXTERN_METHOD(toggleStrike:(nonnull NSNumber *)node)
 RCT_EXTERN_METHOD(toggleItalic:(nonnull NSNumber *)node)
 RCT_EXTERN_METHOD(setPlaceholder:(nonnull NSNumber *)node placeholder:(nonnull NSString *)placeholder)
+RCT_EXTERN_METHOD(focus:(nonnull NSNumber *)node)
+RCT_EXTERN_METHOD(blur:(nonnull NSNumber *)node)
 
 RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)
 

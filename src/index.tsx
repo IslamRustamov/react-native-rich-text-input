@@ -37,6 +37,8 @@ export interface RichTextRef {
   toggleUnderline: Function;
   getHTML: () => Promise<string>;
   insertText: (text: string) => void;
+  focus: Function;
+  blur: Function;
 }
 
 const ComponentName = 'RichTextInputView';
@@ -65,6 +67,20 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
 
     useImperativeHandle(ref, () => {
       return {
+        focus: () => {
+          UIManager.dispatchViewManagerCommand(
+            findNodeHandle(inputRef.current as unknown as Component),
+            'focus',
+            []
+          );
+        },
+        blur: () => {
+          UIManager.dispatchViewManagerCommand(
+            findNodeHandle(inputRef.current as unknown as Component),
+            'blur',
+            []
+          );
+        },
         toggleBold: () => {
           UIManager.dispatchViewManagerCommand(
             findNodeHandle(inputRef.current as unknown as Component),

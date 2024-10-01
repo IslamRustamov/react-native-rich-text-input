@@ -39,6 +39,14 @@ import RichTextInput,  { type RichTextRef, type RichTextChangeEvent } from 'reac
 
 const ref = useRef<RichTextRef>(null);
 
+const handleFocus = () => {
+    ref.current?.focus();
+};
+
+const handleBlur = () => {
+    ref.current?.blur();
+};
+
 const handleUnderlinePress = () => {
     ref.current?.toggleUnderline();
 };
@@ -85,6 +93,7 @@ const handleInsertText = () => {
 5. Return text without markdown (iOS, Android)
 6. Add method that returns rich text in HTML (iOS, Android)
 7. Add method to set default text (Android)
+8. Add focus and blur methods (iOS, Android)
 
 # TODO
 
