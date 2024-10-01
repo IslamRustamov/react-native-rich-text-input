@@ -1,6 +1,6 @@
 {
   "name": "react-native-rich-text-input",
-  "version": "0.10.2",
+  "version": "0.11.0",
   "description": "Native component that allows you to add different rich text abilities",
   "source": "./src/index.tsx",
   "main": "./lib/commonjs/index.js",
