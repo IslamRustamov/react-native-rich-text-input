@@ -100,6 +100,7 @@ const handleInsertText = () => {
 1. Ability to enable certain format and apply it without selecting a portion of text
 2. Returning active formats for a selection
 3. Add convertation to markdown (not sure about this for now)
+4. Link embedding (TOP PRIORITY)
 
 ## Contributing
 
