@@ -133,6 +133,7 @@ const handleGetSelection = () => {
 5. Link deletion (iOS left)
 6. Add method to return current selection (iOS)
 7. Add proper HTML creation from attributedString in iOS
+8. Add getting link from specified position
 
 ## Contributing
 
