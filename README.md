@@ -127,6 +127,7 @@ const handleGetSelection = () => {
 4. Link embedding (TOP PRIORITY, iOS left)
 5. Link deletion (iOS left)
 6. Add method to return current selection (iOS)
+7. Add proper HTML creation from attributedString in iOS
 
 ## Contributing
 
