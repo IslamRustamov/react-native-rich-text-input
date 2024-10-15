@@ -85,10 +85,15 @@ const handleBlur = () => {
 };
 
 // NOTE: you are responsible for valid selection and URL format
+// This will embed a link to selected portion of text
+// arg0 - start of the text
+// arg1 - end of the text
+// arg2 - link itself to be embedded in range of arg0...arg1
 const handleEmbedLink = () => {
     ref.current?.embedLink(0, 5, 'https://www.google.com');
 };
 
+// arg0 - position of link in text
 const handleRemoveLink = () => {
     ref.current?.removeLink(1);
 };
