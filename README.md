@@ -76,6 +76,27 @@ const handleInsertText = () => {
     ref.current?.insertText('<p dir="ltr"><u>some</u> <b>text</b></p>');
 };
 
+const handleFocus = () => {
+    ref.current?.focus();
+};
+
+const handleBlur = () => {
+    ref.current?.blur();
+};
+
+// NOTE: you are responsible for valid selection and URL format
+const handleEmbedLink = () => {
+    ref.current?.embedLink(0, 5, 'https://www.google.com');
+};
+
+const handleRemoveLink = () => {
+    ref.current?.removeLink(1);
+};
+
+const handleGetSelection = () => {
+    console.log(ref.current?.getSelection());
+};
+
 <RichTextInput
     ref={ref}
     placeholder="I am the angry placeholder"
@@ -94,13 +115,18 @@ const handleInsertText = () => {
 6. Add method that returns rich text in HTML (iOS, Android)
 7. Add method to set default text (Android)
 8. Add focus and blur methods (iOS, Android)
+9. Link embedding (Android)
+10. Link deletion (Android)
+11. Add method to return current selection (Android)
 
 # TODO
 
 1. Ability to enable certain format and apply it without selecting a portion of text
 2. Returning active formats for a selection
 3. Add convertation to markdown (not sure about this for now)
-4. Link embedding (TOP PRIORITY)
+4. Link embedding (TOP PRIORITY, iOS left)
+5. Link deletion (iOS left)
+6. Add method to return current selection (iOS)
 
 ## Contributing
 

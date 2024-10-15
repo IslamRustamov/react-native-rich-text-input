@@ -35,10 +35,13 @@ export interface RichTextRef {
   toggleItalic: Function;
   toggleStrike: Function;
   toggleUnderline: Function;
-  getHTML: () => Promise<string>;
+  getHTML: () => string;
   insertText: (text: string) => void;
   focus: Function;
   blur: Function;
+  embedLink: (start: number, end: number, href: string) => void;
+  removeLink: (start: number) => void;
+  getSelection: () => [number, number];
 }
 
 const ComponentName = 'RichTextInputView';
@@ -122,6 +125,28 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
             'insertText',
             [text]
           );
+        },
+        embedLink: (start, end, href) => {
+          UIManager.dispatchViewManagerCommand(
+            findNodeHandle(inputRef.current as unknown as Component),
+            'embedLink',
+            [start, end, href]
+          );
+        },
+        removeLink: (start) => {
+          UIManager.dispatchViewManagerCommand(
+            findNodeHandle(inputRef.current as unknown as Component),
+            'removeLink',
+            [start]
+          );
+        },
+        getSelection: () => {
+          // NOTE: maybe I should address this issue... just maybe...
+          if (Platform.OS === 'android') {
+            return NativeModules.RichTextInputView.getSelection();
+          }
+
+          return () => [-1, -1];
         },
       };
     }, []);

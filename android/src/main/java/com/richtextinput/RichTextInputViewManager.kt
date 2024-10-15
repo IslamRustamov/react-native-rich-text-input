@@ -1,12 +1,13 @@
 package com.richtextinput
 
-import android.R.attr.htmlDescription
 import android.app.Activity
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
+import android.text.style.URLSpan
 import android.text.style.UnderlineSpan
+import android.text.util.Linkify
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.text.HtmlCompat
@@ -16,10 +17,12 @@ import com.facebook.infer.annotation.Assertions
 import com.facebook.react.bridge.Arguments
 import com.facebook.react.bridge.ReactMethod
 import com.facebook.react.bridge.ReadableArray
+import com.facebook.react.bridge.WritableArray
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.events.RCTEventEmitter
+import java.io.Serializable
 
 
 class RichTextInputViewManager : SimpleViewManager<EditText>() {
@@ -66,6 +69,20 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
     return "ERROR: richTextView IS NOT INITIALIZED"
   }
 
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  fun getSelection(): WritableArray {
+    val array = Arguments.createArray()
+
+    if (editText != null) {
+      array.pushInt(editText!!.selectionStart)
+      array.pushInt(editText!!.selectionEnd)
+
+      return array
+    }
+
+    return array
+  }
+
   override fun receiveCommand(root: EditText, commandId: String?, args: ReadableArray?) {
     Assertions.assertNotNull(root)
 
@@ -95,9 +112,47 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
           insertText(root, text)
         }
       }
+      "embedLink" -> {
+        if (args !== null) {
+          val start = args.getInt(0)
+          val end = args.getInt(1)
+          val href = args.getString(2)
+
+          if (start == end) {
+            return
+          }
+
+          embedLink(root, start, end, href)
+        }
+      }
+      "removeLink" -> {
+        if (args !== null) {
+          val start = args.getInt(0)
+
+          removeLink(root, start)
+        }
+      }
     }
 
     super.receiveCommand(root, commandId, args)
+  }
+
+  fun embedLink(editText: EditText, start: Int, end: Int, href: String) {
+    if (start == end) {
+      return
+    }
+
+    editText.text.setSpan(URLSpan(href), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE)
+  }
+
+  fun removeLink(editText: EditText, start: Int) {
+    val spans = editText.text.getSpans(start, start, URLSpan::class.java)
+
+    if (spans.isNotEmpty()) {
+      for (span in spans) {
+        editText.text.removeSpan(span)
+      }
+    }
   }
 
   fun focus(editText: EditText) {

@@ -51,6 +51,18 @@ function App(): React.JSX.Element {
     ref.current?.blur();
   };
 
+  const handleEmbedLink = () => {
+    ref.current?.embedLink(0, 5, 'https://www.google.com');
+  };
+
+  const handleRemoveLink = () => {
+    ref.current?.removeLink(1);
+  };
+
+  const handleGetSelection = () => {
+    console.log(ref.current?.getSelection());
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <RichTextInput
@@ -67,6 +79,9 @@ function App(): React.JSX.Element {
       <Button title="Italic" onPress={handleItalicPress} />
       <Button title="Get HTML" onPress={handleGetHTML} />
       <Button title="Insert text" onPress={handleInsertText} />
+      <Button title="Embed link" onPress={handleEmbedLink} />
+      <Button title="Remove link" onPress={handleRemoveLink} />
+      <Button title="Get selection" onPress={handleGetSelection} />
     </SafeAreaView>
   );
 }
