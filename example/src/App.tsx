@@ -63,6 +63,10 @@ function App(): React.JSX.Element {
     console.log(ref.current?.getSelection());
   };
 
+  const handleGetLink = () => {
+    console.log(ref.current?.getLink(1));
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <RichTextInput
@@ -81,6 +85,7 @@ function App(): React.JSX.Element {
       <Button title="Insert text" onPress={handleInsertText} />
       <Button title="Embed link" onPress={handleEmbedLink} />
       <Button title="Remove link" onPress={handleRemoveLink} />
+      <Button title="Get link" onPress={handleGetLink} />
       <Button title="Get selection" onPress={handleGetSelection} />
     </SafeAreaView>
   );

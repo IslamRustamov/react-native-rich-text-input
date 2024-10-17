@@ -42,6 +42,7 @@ export interface RichTextRef {
   embedLink: (start: number, end: number, href: string) => void;
   removeLink: (start: number) => void;
   getSelection: () => [number, number];
+  getLink: (position: number) => string;
 }
 
 const ComponentName = 'RichTextInputView';
@@ -147,6 +148,14 @@ const RichTextInput = forwardRef<RichTextRef, RichTextProps>(
           }
 
           return () => [-1, -1];
+        },
+        getLink: (position: number) => {
+          // NOTE: maybe I should address this issue... just maybe...
+          if (Platform.OS === 'android') {
+            return NativeModules.RichTextInputView.getLink(position);
+          }
+
+          return () => '';
         },
       };
     }, []);

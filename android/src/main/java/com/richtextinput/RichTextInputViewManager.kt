@@ -7,7 +7,6 @@ import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.URLSpan
 import android.text.style.UnderlineSpan
-import android.text.util.Linkify
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.text.HtmlCompat
@@ -22,11 +21,9 @@ import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
 import com.facebook.react.uimanager.events.RCTEventEmitter
-import java.io.Serializable
-
 
 class RichTextInputViewManager : SimpleViewManager<EditText>() {
-  var editText: EditText? = null
+  private var editText: EditText? = null
 
   override fun getName() = "RichTextInputView"
 
@@ -66,7 +63,7 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
       return editText!!.text.toHtml()
     }
 
-    return "ERROR: richTextView IS NOT INITIALIZED"
+    return INPUT_NOT_INITIALIZED_ERROR
   }
 
   @ReactMethod(isBlockingSynchronousMethod = true)
@@ -81,6 +78,19 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
     }
 
     return array
+  }
+
+  @ReactMethod(isBlockingSynchronousMethod = true)
+  fun getLink(position: Int): String {
+    if (editText != null) {
+      val span = editText!!.text.getSpans(position, position, URLSpan::class.java)[0]
+
+      if (span != null) {
+        return span.url
+      }
+    }
+
+    return INPUT_NOT_INITIALIZED_ERROR
   }
 
   override fun receiveCommand(root: EditText, commandId: String?, args: ReadableArray?) {
@@ -328,5 +338,11 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
     }
 
     addSpan(editText, editText.selectionStart, editText.selectionEnd, newSpan)
+  }
+
+  companion object {
+    const val INPUT_NOT_INITIALIZED_ERROR = "ERROR: richTextView IS NOT INITIALIZED"
+    // NOTE: maybe I can rename this so that in iOS and Android we had same module names?
+    const val NAME = "RichTextInputView"
   }
 }
