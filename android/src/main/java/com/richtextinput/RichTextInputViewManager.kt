@@ -83,11 +83,13 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
   @ReactMethod(isBlockingSynchronousMethod = true)
   fun getLink(position: Int): String {
     if (editText != null) {
-      val span = editText!!.text.getSpans(position, position, URLSpan::class.java)[0]
+      val spans = editText!!.text.getSpans(position, position, URLSpan::class.java)
 
-      if (span != null) {
-        return span.url
+      if (spans.size > 0) {
+        return spans[0].url
       }
+
+      return ""
     }
 
     return INPUT_NOT_INITIALIZED_ERROR

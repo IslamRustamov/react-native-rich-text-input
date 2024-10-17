@@ -102,6 +102,11 @@ const handleGetSelection = () => {
     console.log(ref.current?.getSelection());
 };
 
+// arg0 - position of link in text
+const handleGetLink = () => {
+    console.log(ref.current?.getLink(1));
+};
+
 <RichTextInput
     ref={ref}
     placeholder="I am the angry placeholder"
