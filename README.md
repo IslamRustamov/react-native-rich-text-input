@@ -119,7 +119,7 @@ const handleGetLink = () => {
 
 1. Setting placeholder (iOS, Android)
 2. Select a portion of text and add different styles (bold, italic, underline, strikethrough) (iOS, Android)
-3. Add native context menu for formatting (iOS)
+3. Add native context menu for formatting (iOS, Android)
 4. Add onChange prop (iOS, Android)
 5. Return text without markdown (iOS, Android)
 6. Add method that returns rich text in HTML (iOS, Android)

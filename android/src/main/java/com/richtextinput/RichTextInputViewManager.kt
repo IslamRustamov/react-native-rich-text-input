@@ -1,12 +1,19 @@
 package com.richtextinput
 
 import android.app.Activity
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.graphics.Typeface
 import android.text.Spannable
 import android.text.style.StrikethroughSpan
 import android.text.style.StyleSpan
 import android.text.style.URLSpan
 import android.text.style.UnderlineSpan
+import android.view.ActionMode
+import android.view.ActionMode.Callback
+import android.view.Menu
+import android.view.MenuItem
 import android.view.inputmethod.InputMethodManager
 import android.widget.EditText
 import androidx.core.text.HtmlCompat
@@ -47,6 +54,51 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
       reactContext
         .getJSModule(RCTEventEmitter::class.java)
         .receiveEvent(editText!!.id, "topChange", event)
+    }
+
+    editText!!.customSelectionActionModeCallback = object : Callback {
+      override fun onCreateActionMode(mode: ActionMode, menu: Menu): Boolean {
+        return true
+      }
+
+      override fun onPrepareActionMode(mode: ActionMode, menu: Menu): Boolean {
+        menu.clear()
+
+        menu.add(0, 1, 0, "Copy")
+        menu.add(0, 2, 0, "Bold")
+        menu.add(0, 3, 0, "Italic")
+        menu.add(0, 4, 0, "Strikethrough")
+        menu.add(0, 4, 0, "Underline")
+
+        return true
+      }
+
+      override fun onActionItemClicked(mode: ActionMode, menu: MenuItem): Boolean {
+        // TODO: you can avoid code duplication probably
+        when (menu.title) {
+          "Bold" -> {
+            toggleBold(editText!!)
+          }
+          "Italic" -> {
+            toggleItalic(editText!!)
+          }
+          "Underline" -> {
+            toggleUnderline(editText!!)
+          }
+          "Strikethrough" -> {
+            toggleStrike(editText!!)
+          }
+          "Copy" -> {
+            copy(editText!!)
+          }
+        }
+
+        mode.finish()
+
+        return true
+      }
+
+      override fun onDestroyActionMode(mode: ActionMode) {}
     }
 
     return editText as EditText
@@ -147,6 +199,14 @@ class RichTextInputViewManager : SimpleViewManager<EditText>() {
     }
 
     super.receiveCommand(root, commandId, args)
+  }
+
+  fun copy(editText: EditText) {
+    val clipboard = editText.context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+
+    val clip = ClipData.newPlainText("Copied text", editText.text.subSequence(editText.selectionStart, editText.selectionEnd))
+
+    clipboard.setPrimaryClip(clip)
   }
 
   fun embedLink(editText: EditText, start: Int, end: Int, href: String) {
