@@ -4,7 +4,11 @@ Native component that allows you to add different rich text abilities
 
 No webviews, no turbo-module-like tricks, just straight up native _UITextView_ for iOS and _EditText_ for Android
 
-### NOTE This library is work in progress, check what was implemented below
+### Note from author
+
+I've been having a really good time developing this thing for Android, but iOS has driven me into a deepest pit of despair where things are so bad that you honestly believe that God left us because we invented Swift and Objective-C.
+
+I'm temporarily (foreverily) dropping support for iOS devices and will focus more on Android, since I can't take iOS's bs anymore. So iOS contributors are welcome.
 
 ![](https://github.com/IslamRustamov/react-native-rich-text-input/blob/main/public/iPhone.gif)
 
@@ -135,10 +139,9 @@ const handleGetLink = () => {
 1. Ability to enable certain format and apply it without selecting a portion of text
 2. Returning active formats for a selection
 3. Add convertation to markdown (not sure about this for now)
-4. Link embedding (TOP PRIORITY, iOS left)
-5. Link deletion (iOS left)
-6. Add method to return current selection (iOS)
-7. Add proper HTML creation from attributedString in iOS
+4. Add method to return current selection (iOS)
+5. Add proper HTML creation from attributedString in iOS
+6. Fix iOS link embedding (wrong ranges of links)
 
 ## Contributing
 
