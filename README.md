@@ -125,8 +125,8 @@ const handleGetLink = () => {
 6. Add method that returns rich text in HTML (iOS, Android)
 7. Add method to set default text (Android)
 8. Add focus and blur methods (iOS, Android)
-9. Link embedding (Android)
-10. Link deletion (Android)
+9. Link embedding (+-iOS, Android)
+10. Link deletion (iOS, Android)
 11. Add method to return current selection (Android)
 12. Add getting link from specified position (Android)
 

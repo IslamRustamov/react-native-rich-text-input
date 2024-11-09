@@ -16,6 +16,8 @@ RCT_EXTERN_METHOD(toggleItalic:(nonnull NSNumber *)node)
 RCT_EXTERN_METHOD(setPlaceholder:(nonnull NSNumber *)node placeholder:(nonnull NSString *)placeholder)
 RCT_EXTERN_METHOD(focus:(nonnull NSNumber *)node)
 RCT_EXTERN_METHOD(blur:(nonnull NSNumber *)node)
+RCT_EXTERN_METHOD(embedLink:(nonnull NSNumber *)node start:(nonnull NSNumber *)start end:(nonnull NSNumber *)end href:(nonnull NSString *)href)
+RCT_EXTERN_METHOD(removeLink:(nonnull NSNumber *)node start:(nonnull NSNumber *)start)
 
 RCT_EXPORT_VIEW_PROPERTY(onChange, RCTBubblingEventBlock)
 

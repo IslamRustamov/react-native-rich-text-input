@@ -52,7 +52,7 @@ function App(): React.JSX.Element {
   };
 
   const handleEmbedLink = () => {
-    ref.current?.embedLink(0, 5, 'https://www.google.com');
+    ref.current?.embedLink(2, 3, 'https://www.google.com');
   };
 
   const handleRemoveLink = () => {

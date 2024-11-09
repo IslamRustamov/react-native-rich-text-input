@@ -85,6 +85,21 @@ public class RichTextInputViewManager: RCTViewManager, UITextViewDelegate  {
     }
     
     @objc
+    func embedLink(_ node: NSNumber, start: NSNumber, end: NSNumber, href: NSString) {
+        executeBlock({ (richTextView) in
+            richTextView.embedLink(start: start, end: end, href: href)
+        }, onNode: node)
+    }
+    
+    @objc
+    func removeLink(_ node: NSNumber, start: NSNumber) {
+        executeBlock({ (richTextView) in
+            richTextView.removeLink(start: start)
+        }, onNode: node)
+    }
+    
+    
+    @objc
     func getHTML() -> String {
         return richTextView?.getHTML() ?? "ERROR: richTextView IS NOT INITIALIZED"
     }

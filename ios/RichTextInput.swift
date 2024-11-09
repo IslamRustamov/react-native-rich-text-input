@@ -52,6 +52,29 @@ class RichTextInput: UITextView, UIEditMenuInteractionDelegate {
         reactBlur()
     }
     
+    // I honestly going to drop iOS maintaining of this library
+    // I cannot even closely fathom how shitty things are in iOS
+    // Android handles this kind of stuff 10000000% better
+    func embedLink(start: NSNumber, end: NSNumber, href: NSString) {
+        if (start == end) {
+          return
+        }
+
+        textStorage.addAttribute(.link, value: href, range: NSMakeRange(start.intValue, end.intValue))
+    }
+    
+    func removeLink(start: NSNumber) {
+        textStorage.enumerateAttributes(in: NSRange(location: 0, length: textStorage.length), using: {
+            value, range, _ in
+            for key in value.keys {
+                if key == .link && range.contains(start.intValue) {
+                    textStorage.removeAttribute(.link, range: range)
+                }
+            }
+        })
+       
+    }
+    
     // TODO: styles are getting lost if you enable/reenable them, bug, needs fixing
     func toggleStyle(style: NSAttributedString.Key) {
         if selectedRange.length == 0 {
